@@ -82,7 +82,7 @@ def start(store_obj):
                 for product, amount in shopping_list:
                     subtotal = product.price * amount
                     print(
-                        f"- {amount}x {product.name} à ${product.price} = ${subtotal}"
+                        f"- {amount}x {product.name} à ${product.price} = {GREEN}${subtotal}{RESET}"
                     )
                 print(f"{CYAN}---------------------------{RESET}")
 
