@@ -58,16 +58,34 @@ def start(store_obj):
                     prod_index = int(prod_num_input) - 1
                     if prod_index < 0 or prod_index >= len(products):
                         print(
-                            f"{RED}Error: Invalid product number. Please try again.{RESET}"
+                            f"{RED}Error: Invalid product number. Please try again.{RESET}\n"
                         )
                         continue
+
+                    selected_product = products[prod_index]
 
                     amount_input = input(
                         f"{YELLOW}What amount do you want? {RESET}"
                     ).strip()
                     amount = int(amount_input)
 
-                    selected_product = products[prod_index]
+                    if amount <= 0:
+                        print(f"{RED}Error: Quantity must be greater than 0.{RESET}\n")
+                        continue
+
+                    # Prüfen, wie viel von diesem Produkt schon auf der aktuellen Merkliste liegt
+                    already_in_cart = sum(
+                        item[1] for item in shopping_list if item[0] == selected_product
+                    )
+                    available_stock = selected_product.get_quantity() - already_in_cart
+
+                    # Direkt am Produkt checken, ob genügend Stück vorhanden sind
+                    if amount > available_stock:
+                        print(
+                            f"{RED}Error: Not enough stock! Only {available_stock} available.{RESET}\n"
+                        )
+                        continue
+
                     shopping_list.append((selected_product, amount))
                     print(f"{GREEN}Product added to list!{RESET}\n")
 
@@ -77,7 +95,6 @@ def start(store_obj):
                     )
 
             if shopping_list:
-                # Übersicht der bestellten Artikel anzeigen
                 print(f"\n{CYAN}------ Order Summary ------{RESET}")
                 for product, amount in shopping_list:
                     subtotal = product.price * amount
