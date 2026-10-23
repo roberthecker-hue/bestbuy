@@ -15,11 +15,9 @@ class Product:
         self.quantity = quantity
         self.active = True
 
-
     def get_quantity(self) -> int:
         """Gibt die aktuelle Lagermenge zurück."""
         return self.quantity
-
 
     def set_quantity(self, quantity: int):
         """Setzt die Lagermenge. Deaktiviert das Produkt, wenn die Menge <= 0 ist."""
@@ -27,26 +25,21 @@ class Product:
         if self.quantity <= 0:
             self.deactivate()
 
-
     def is_active(self) -> bool:
         """Prüft, ob das Produkt aktiv ist."""
         return self.active
-
 
     def activate(self):
         """Aktiviert das Produkt."""
         self.active = True
 
-
     def deactivate(self):
         """Deaktiviert das Produkt."""
         self.active = False
 
-
     def show(self):
         """Gibt die Produktdetails auf der Konsole aus."""
         print(f"{self.name}, Price: {self.price}, Quantity: {self.quantity}")
-
 
     def buy(self, quantity: int) -> float:
         """Kauft eine bestimmte Menge des Produkts und gibt den Gesamtpreis zurück."""
